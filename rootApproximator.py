@@ -1,8 +1,23 @@
 from math import cos, sin
 
 
-def separateRoots(func, a, b, stepFactor):
-    pass
+def separateRoots(func, a, b, numOfSamples):
+    step = (b - a) / numOfSamples
+    foundIntervals = list()
+    foundRoots = list()
+
+    for i in range(1, numOfSamples + 1):
+        a1 = (i - 1) * step
+        b1 = i * step
+
+        if func(a1) == 0:
+            foundRoots.append(a1)
+        elif func(a1) * func(b1) < 0:
+            foundIntervals.append((a1,b1))
+    if func(b) == 0:
+        foundRoots.append(b)
+        
+    return foundIntervals, foundRoots
 
 
 def printApproximationResults(name, initial_approx, step_counter, approx, last_segment_length, residual):
