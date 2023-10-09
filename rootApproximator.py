@@ -74,9 +74,8 @@ def bisectionMethod(func, a, b, eps):
 def newtonMethod(func, derivative, second_derivative, a, b, eps):
     step_counter = 0
     initial_approx = x_prev = getStartingValue(a, b, func, second_derivative)
-    x_curr = x_prev - func(x_prev) / derivative(x_prev)
 
-    while abs(x_curr - x_prev) > eps:
+    while True:
         step_counter += 1
         x_curr = x_prev - func(x_prev) / derivative(x_prev)
         if abs(x_curr - x_prev) <= eps:
@@ -93,9 +92,8 @@ def newtonMethod(func, derivative, second_derivative, a, b, eps):
 def modifiedNewtonMethod(func, derivative, second_derivative, a, b, eps):
     step_counter = 0
     initial_approx = x_prev = x0 = getStartingValue(a, b, func, second_derivative)
-    x_curr = x_prev - func(x_prev) / derivative(x0)
 
-    while abs(x_curr - x_prev) > eps:
+    while True:
         step_counter += 1
         x_curr = x_prev - func(x_prev) / derivative(x0)
         if abs(x_curr - x_prev) <= eps:
@@ -114,7 +112,6 @@ def secantMethod(func, a, b, eps):
     step_counter = 0
     x_prev = a
     x_curr = b
-    # x_next = x_curr - func(x_curr) * (x_curr - x_prev) / (func(x_curr) - func(x_prev))
 
     while True:
         step_counter += 1
@@ -163,9 +160,9 @@ if __name__ == "__main__":
         print(f"Current interval: [{interval[0]}, {interval[1]}]\n")
         bisectionMethod(function, interval[0], interval[1], eps)
         print('\n')
-        newtonMethod(function, first_deriv, second_deriv, a, b, eps)
+        newtonMethod(function, first_deriv, second_deriv, interval[0], interval[1], eps)
         print('\n')
-        modifiedNewtonMethod(function, first_deriv, second_deriv, a, b, eps)
+        modifiedNewtonMethod(function, first_deriv, second_deriv, interval[0], interval[1], eps)
         print('\n')
-        secantMethod(function, a, b, eps)
+        secantMethod(function, interval[0], interval[1], eps)
         print('\n')
